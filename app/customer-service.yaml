@@ -1,0 +1,67 @@
+openapi: "3.0.3"
+info:
+  title: "QuickStore API"
+  version: "1.0.0"
+  description: "Demo spec for fast analysis by DocuGenAI+ (intentionally incomplete)."
+
+servers:
+  - url: "https://api.quickstore.local/v1"
+
+paths:
+  /products:
+    get:
+      summary: "List products"
+      # Missing description intentionally
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Product"
+
+    post:
+      summary: "Add new product"
+      # Missing description and example
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
+      responses:
+        "201":
+          description: "Created"
+
+  /products/{id}:
+    get:
+      summary: "Get product"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "404":
+          description: "Not found"
+
+components:
+  schemas:
+    Product:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+        name:
+          type: "string"
+        price:
+          type: "number"

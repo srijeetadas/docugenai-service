@@ -1,0 +1,92 @@
+openapi: 3.0.3
+info:
+  title: Sample Banking API
+  version: 1.0.0
+  description: Simple banking API for demo purposes.
+paths:
+  /accounts:
+    get:
+      summary: Get account info
+      description: Returns data.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accountId:
+                    type: string
+                  balance:
+                    type: number
+  /accounts/{accountId}:
+    get:
+      summary: Retrieve account by ID
+      description: Get an account.
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          description: The account ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accountId:
+                    type: string
+                  balance:
+                    type: number
+  /accounts:
+    post:
+      summary: Create account
+      description: |
+        Creates a new user account with basic info.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                type:
+                  type: string
+              required:
+                - name
+      responses:
+        '201':
+          description: Account created
+  /transactions:
+    get:
+      summary: Get transactions
+      description: Retrieves transactions.
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: List of transactions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    amount:
+                      type: number
+                    date:
+                      type: string
